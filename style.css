@@ -2376,18 +2376,17 @@ textarea:focus-visible {
     transform: translateY(0) scale(1);
   }
 }
-/* ===== МОДАЛКА ОФОРМЛЕННЯ ЗАМОВЛЕННЯ – НОВИЙ СТИЛЬ ===== */
+/* ===== Модальне вікно оформлення замовлення ===== */
 
 .order-modal-backdrop {
   position: fixed;
   inset: 0;
+  background: rgba(15, 23, 42, 0.85);
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  z-index: 90;
+  padding: 16px;
+  z-index: 80;
 }
 
 .order-modal-backdrop.is-open {
@@ -2395,107 +2394,84 @@ textarea:focus-visible {
 }
 
 .order-modal {
-  width: min(980px, 100% - 32px);
-  max-height: 90vh;
+  width: min(960px, 100% - 32px);
+  max-height: calc(100vh - 32px);
   background: radial-gradient(circle at top left, #020617 0%, #000 100%);
-  border-radius: 22px;
-  border: 1px solid rgba(31, 41, 55, 0.9);
+  border-radius: 20px;
+  border: 1px solid rgba(31, 41, 55, 0.95);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95);
-  padding: 20px 22px 20px;
-  color: #e5e7eb;
+  padding: 18px 20px 20px;
   display: flex;
   flex-direction: column;
+  color: #e5e7eb;
+  overflow-y: auto; /* ГОЛОВНЕ: модалка скролиться, якщо не влазить */
 }
-
-/* заголовок */
 
 .order-modal-header {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 16px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .order-modal-header h2 {
-  margin: 0 0 4px;
+  margin: 0;
   font-size: 20px;
-  font-weight: 700;
 }
 
 .order-modal-header p {
-  margin: 0;
+  margin: 2px 0 0;
   font-size: 13px;
   color: #9ca3af;
 }
 
 .order-modal-close {
-  border: 1px solid rgba(55, 65, 81, 0.9);
+  border: none;
   background: rgba(15, 23, 42, 0.95);
-  color: #e5e7eb;
+  color: #9ca3af;
   border-radius: 999px;
   width: 32px;
   height: 32px;
   cursor: pointer;
   font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    background 0.15s,
-    transform 0.12s,
-    box-shadow 0.18s,
-    border-color 0.15s;
 }
 
 .order-modal-close:hover {
   background: rgba(30, 64, 175, 0.9);
-  border-color: rgba(129, 140, 248, 0.9);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
 }
 
-/* дві колонки */
+/* контент 2 колонки на десктопі */
 
 .order-modal-content {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-  gap: 16px;
+  gap: 14px;
   overflow: hidden;
 }
 
-/* ліва колонка – товари */
-
 .order-summary {
-  border-radius: 16px;
-  padding: 12px 14px;
-  background: radial-gradient(circle at top, #020617 0%, #020617 70%);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: rgba(15, 23, 42, 0.95);
   border: 1px solid rgba(31, 41, 55, 0.9);
   display: flex;
   flex-direction: column;
-  min-width: 0;
 }
 
 .order-summary-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   margin-bottom: 8px;
-  gap: 8px;
+  font-size: 14px;
 }
 
-.order-summary-header h3 {
+.order-summary h3 {
   margin: 0;
   font-size: 15px;
-  font-weight: 600;
 }
-
-#orderSummaryCount {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-/* список товарів */
 
 .order-summary-items {
   flex: 1;
@@ -2506,11 +2482,11 @@ textarea:focus-visible {
 
 .order-summary-item {
   display: grid;
-  grid-template-columns: minmax(0, 1.7fr) 40px 80px 80px;
+  grid-template-columns: minmax(0, 1.6fr) 40px 80px 80px;
   gap: 6px;
   font-size: 13px;
   padding: 6px 0;
-  border-bottom: 1px dashed rgba(55, 65, 81, 0.7);
+  border-bottom: 1px dashed rgba(55, 65, 81, 0.8);
 }
 
 .order-summary-item:last-child {
@@ -2525,19 +2501,6 @@ textarea:focus-visible {
   font-size: 11px;
   color: #9ca3af;
 }
-
-.order-summary-qty,
-.order-summary-price,
-.order-summary-sum {
-  text-align: right;
-  white-space: nowrap;
-}
-
-.order-summary-sum {
-  font-weight: 600;
-}
-
-/* підсумок знизу */
 
 .order-summary-footer {
   border-top: 1px solid rgba(31, 41, 55, 0.9);
@@ -2556,14 +2519,13 @@ textarea:focus-visible {
   font-size: 14px;
 }
 
-/* права колонка – форма */
+/* форма справа */
 
 .order-form-box {
-  border-radius: 16px;
-  padding: 12px 14px 14px;
-  background: radial-gradient(circle at top right, #020617 0%, #020617 70%);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: rgba(15, 23, 42, 0.98);
   border: 1px solid rgba(31, 41, 55, 0.9);
-  min-width: 0;
 }
 
 .order-form {
@@ -2574,11 +2536,9 @@ textarea:focus-visible {
 
 .order-form-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 10px 14px;
 }
-
-/* поле форми */
 
 .order-field {
   display: flex;
@@ -2598,43 +2558,23 @@ textarea:focus-visible {
   width: 100%;
   border-radius: 10px;
   border: 1px solid rgba(55, 65, 81, 0.9);
-  background: rgba(15, 23, 42, 0.98);
+  background: rgba(15, 23, 42, 0.95);
   color: #e5e7eb;
   padding: 8px 10px;
   font-size: 13px;
-  outline: none;
-  transition:
-    border-color 0.16s ease-out,
-    box-shadow 0.16s ease-out,
-    background 0.16s ease-out,
-    transform 0.1s ease-out;
 }
 
 .order-field textarea {
-  min-height: 70px;
-  max-height: 150px;
   resize: vertical;
+  min-height: 70px;
 }
-
-.order-field input:focus,
-.order-field select:focus,
-.order-field textarea:focus {
-  border-color: #22c55e;
-  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6);
-  background: #020617;
-  transform: translateY(-1px);
-}
-
-/* поле на всю ширину */
 
 .order-field-full {
   grid-column: 1 / -1;
 }
 
-/* кнопки внизу форми */
-
 .order-form-actions {
-  margin-top: 8px;
+  margin-top: 10px;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -2642,21 +2582,25 @@ textarea:focus-visible {
 
 .order-submit-btn {
   min-width: 210px;
-  justify-content: center;
 }
 
-/* підказка/повідомлення */
-
 .order-hint {
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 12px;
   color: #22c55e;
 }
 
-/* адаптив */
+/* ===== Адаптив ===== */
+
+/* планшет: дві колонки → одна, але ще «модалка посередині» */
 
 @media (max-width: 900px) {
+  .order-modal-backdrop {
+    padding: 8px;
+  }
+
   .order-modal {
+    width: 100%;
     max-height: 100vh;
   }
 
@@ -2669,51 +2613,44 @@ textarea:focus-visible {
   }
 
   .order-form-grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
+  }
+}
+
+/* телефон: модалка зверху, на всю ширину, скрол сторінки всередині модалки */
+
+@media (max-width: 640px) {
+  .order-modal-backdrop {
+    align-items: flex-start;
+    padding: 0;
   }
 
-  .order-field-full {
-    grid-column: auto;
-  }
-
-  .order-submit-btn {
+  .order-modal {
     width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding: 14px 12px 18px;
+  }
+
+  .order-modal-header {
+    padding-inline: 4px;
+  }
+
+  .order-modal-content {
+    padding-top: 4px;
+  }
+
+  .order-summary {
+    max-height: 180px;
   }
 
   .order-form-actions {
     flex-direction: column-reverse;
-    align-items: stretch;
-  }
-}
-
-/* ================ ПЛАВНА ПОЯВА БЛОКІВ ПРИ СКРОЛІ ================ */
-
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
-  will-change: opacity, transform;
-}
-
-/* коли елемент потрапляє в зону видимості, JS додає клас */
-.reveal-on-scroll.sr-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* якщо в системі вимкнені анімації — не крутимо нічого */
-@media (prefers-reduced-motion: reduce) {
-  .page {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
   }
 
-  .reveal-on-scroll {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  .order-form-actions .btn {
+    width: 100%;
   }
 }
